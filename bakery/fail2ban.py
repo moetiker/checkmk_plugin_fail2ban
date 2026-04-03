@@ -35,13 +35,11 @@ def get_fail2ban_plugin_files(conf: Fail2BanConfig) -> FileGenerator:
     Yields:
        Iterator[FileGenerator]: _description_
     """
-    interval = conf.get('interval')
-
     yield Plugin(
       base_os=OS.LINUX,
       source=Path('fail2ban.sh'),
       target=Path('fail2ban.sh'),
-      interval = int(interval),
+      interval = int(conf.get('interval', 300)),
     )
 
 register.bakery_plugin(
